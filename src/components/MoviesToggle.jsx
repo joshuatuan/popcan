@@ -1,7 +1,7 @@
-import { useMoviesContext } from "../contexts/MoviesContext";
+import { useUIContext } from "../contexts/UIContext";
 
 function MoviesToggle({ className }) {
-  const { view, setView } = useMoviesContext();
+  const { view, setView } = useUIContext();
   return (
     <div
       className={`flex items-center justify-center rounded-xl bg-primaryLight p-1 ${className}`}

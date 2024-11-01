@@ -1,8 +1,8 @@
-import { useMoviesContext } from "../../contexts/MoviesContext";
+import { useWatchedMoviesContext } from "../../contexts/WatchedMoviesContext";
 import WatchedMovie from "./WatchedMovie";
 
 function WatchedMovieList() {
-  const { watchedMovies } = useMoviesContext();
+  const { watchedMovies } = useWatchedMoviesContext();
   const totalMovies = watchedMovies?.length;
 
   return (

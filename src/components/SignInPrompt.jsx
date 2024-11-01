@@ -1,7 +1,7 @@
-import { useMoviesContext } from "../contexts/MoviesContext";
+import { useUIContext } from "../contexts/UIContext";
 
 function SignInPrompt() {
-  const { setView } = useMoviesContext();
+  const { setView } = useUIContext();
   return (
     <div className="flex w-full items-center justify-center rounded-xl bg-background-500 p-10 text-center text-textDark">
       <span

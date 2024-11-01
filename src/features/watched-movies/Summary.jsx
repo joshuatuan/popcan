@@ -1,9 +1,9 @@
-import { useMoviesContext } from "../../contexts/MoviesContext";
+import { useWatchedMoviesContext } from "../../contexts/WatchedMoviesContext";
 import { average } from "../../utils/helpers";
 import SummaryStat from "./SummaryStat";
 
 function Summary() {
-  const { watchedMovies } = useMoviesContext();
+  const { watchedMovies } = useWatchedMoviesContext();
 
   const avgImdbRating = average(
     watchedMovies

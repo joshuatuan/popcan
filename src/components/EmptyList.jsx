@@ -1,7 +1,7 @@
-import { useMoviesContext } from "../contexts/MoviesContext";
+import { useUIContext } from "../contexts/UIContext";
 
 function EmptyList() {
-  const { setView } = useMoviesContext();
+  const { setView } = useUIContext();
   return (
     <div className="flex items-center justify-center text-textDark">
       <p>

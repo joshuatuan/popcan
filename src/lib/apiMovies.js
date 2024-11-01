@@ -18,7 +18,7 @@ export async function getRatedMovies() {
   const OMDB_KEY = import.meta.env.VITE_OMDB_KEY;
 
   const session = await getSession();
-  if (!session) return null;
+  if (!session) return [];
 
   const user_id = session.user.id;
 
@@ -31,7 +31,7 @@ export async function getRatedMovies() {
   // Ensure that ratedMoviesData is defined and has movies
   if (!ratedMoviesData || ratedMoviesData.length === 0) return [];
 
-  // Use Promise.all to fetch movie details concurrently
+  // parallel fetch movie details
   const ratedMovies = await Promise.all(
     ratedMoviesData.map(async (movie) => {
       const movieId = movie.movie_id; // Access the movie_id from the rating object
@@ -71,4 +71,19 @@ export async function fetchMovieSearch(query, signal) {
   }
 
   return data.Search;
+}
+
+export async function fetchMovieDetails(id) {
+  console.log("Fetching movie details for ID:", id);
+  const API_KEY = import.meta.env.VITE_OMDB_KEY;
+
+  const res = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
+  if (!res.ok) {
+    throw new Error("Something went wrong with fetching movies");
+  }
+  const data = await res.json();
+  if (data.Response === "False") {
+    throw new Error("Error fetching movie details");
+  }
+  return data;
 }

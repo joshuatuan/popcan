@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchMovieSearch } from "../../lib/apiMovies";
 
-export function useMovies(query) {
+export function useMoviesData(query) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -27,9 +27,9 @@ export function useMovies(query) {
 
         const data = await fetchMovieSearch(debouncedQuery, controller.signal);
         setMovies(data);
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          setError(err.message);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          setError(error.message);
           setMovies([]);
         }
       } finally {
@@ -40,6 +40,7 @@ export function useMovies(query) {
     if (debouncedQuery.length < 3) {
       setMovies([]);
       setError("");
+      // handleCloseMovie();
       return;
     }
 

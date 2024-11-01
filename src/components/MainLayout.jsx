@@ -1,10 +1,10 @@
-import { useMoviesContext } from "../contexts/MoviesContext";
+import { useUIContext } from "../contexts/UIContext";
 import MoviesContainer from "../features/movies/MoviesContainer";
 import WatchedMoviesContainer from "../features/watched-movies/WatchedMoviesContainer";
 import AuthContainer from "./AuthContainer";
 
 function MainLayout() {
-  const { view } = useMoviesContext();
+  const { view } = useUIContext();
   return (
     <main className="mx-auto mt-3 flex min-h-[200px] max-w-full justify-center p-3 md:mt-8 md:p-10">
       {view === "myList" && <WatchedMoviesContainer />}

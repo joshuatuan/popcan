@@ -9,8 +9,6 @@ function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signUp, isSigningUp, signUpError } = useSignUp();
-  console.dir(signUpError);
-  console.log("password: ", password);
 
   return (
     <form

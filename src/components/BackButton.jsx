@@ -1,8 +1,9 @@
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
-import { useMoviesContext } from "../contexts/MoviesContext";
+import { useUIContext } from "../contexts/UIContext";
 
 function BackButton() {
-  const { handleSelectMovie } = useMoviesContext();
+  const { handleSelectMovie } = useUIContext();
+
   return (
     <button
       onClick={() => handleSelectMovie("")}

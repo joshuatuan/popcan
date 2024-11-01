@@ -1,15 +1,22 @@
 import { useRef } from "react";
 import { useKey } from "../hooks/useKey";
 import { useMoviesContext } from "../contexts/MoviesContext";
+import { useUIContext } from "../contexts/UIContext";
 
 function Search() {
-  const { query, setQuery, handleSelectMovie } = useMoviesContext();
+  const { query, setQuery } = useMoviesContext();
+  const { handleCloseMovie } = useUIContext();
   const inputElement = useRef(null);
 
-  if (query.length < 1) handleSelectMovie(null);
+  if (query?.length < 1) handleCloseMovie();
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+    handleCloseMovie();
+  };
 
   useKey("Enter", function () {
-    if (document.activeElement === inputElement.current) return; // if actively searching, do not do siht
+    if (document.activeElement === inputElement.current) return; // if actively searching, dont do a thing
     inputElement.current.focus();
     setQuery("");
   });
@@ -20,7 +27,7 @@ function Search() {
       type="text"
       placeholder="Search films..."
       value={query}
-      onChange={(e) => setQuery(e.target.value)}
+      onChange={handleChange}
       ref={inputElement}
     />
   );

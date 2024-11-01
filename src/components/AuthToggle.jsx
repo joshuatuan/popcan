@@ -1,7 +1,7 @@
-import { useMoviesContext } from "../contexts/MoviesContext";
+import { useUIContext } from "../contexts/UIContext";
 
 function AuthToggle() {
-  const { setView } = useMoviesContext();
+  const { setView } = useUIContext();
   return (
     <button
       onClick={() => setView("auth")}

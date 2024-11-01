@@ -1,10 +1,9 @@
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-import { useMoviesContext } from "../../contexts/MoviesContext";
 import MissingPoster from "../../components/MissingPoster";
 import MovieTitle from "../../components/MovieTitle";
+import { useUIContext } from "../../contexts/UIContext";
 
 function Movie({ movie }) {
-  const { handleSelectMovie, selectedId, setUserRating } = useMoviesContext();
+  const { handleSelectMovie, selectedId, setUserRating } = useUIContext();
   const isMovieSelected = selectedId === movie.imdbID;
 
   return (

@@ -1,21 +1,21 @@
-import ErrorMessage from "../../components/ErrorMessage";
 import Search from "../../components/Search";
 import SpinnerMini from "../../components/SpinnerMini";
 import { useMoviesContext } from "../../contexts/MoviesContext";
+import { useUIContext } from "../../contexts/UIContext";
 import MovieDetails from "./MovieDetails";
 import MovieList from "./MovieList";
 import MovieSearchResult from "./MovieSearchResult";
 
 function MoviesContainer() {
-  const { isLoadingMovies, movies, errorMovies, selectedId } =
-    useMoviesContext();
+  const { isLoading, movies, error } = useMoviesContext();
+  const { selectedId } = useUIContext();
 
   return (
     <div className="w-full max-w-5xl">
       <div className="mr-4 flex flex-col items-center justify-center gap-4 transition-all duration-300 md:flex-row">
         <div className="mb-2 flex w-full items-center justify-center gap-4 md:mb-5 md:justify-start">
           <Search />
-          {isLoadingMovies && <SpinnerMini className="w-7" />}
+          {isLoading && <SpinnerMini className="w-7" />}
         </div>
 
         <MovieSearchResult />
@@ -26,7 +26,7 @@ function MoviesContainer() {
           movies.length > 0 ? "md:overflow-y-auto" : "h-full"
         }`}
       >
-        {movies.length === 0 && !errorMovies ? (
+        {movies.length === 0 && !error ? (
           <p className="flex items-center justify-center text-lg text-gray-600 md:col-span-2 md:text-2xl">
             Start by searching for a film
           </p>

@@ -1,19 +1,17 @@
 import { useEffect, useRef } from "react";
+import { useWatchedMoviesContext } from "../../contexts/WatchedMoviesContext";
+import { useAddMovie } from "../watched-movies/useAddMovie";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useUIContext } from "../../contexts/UIContext";
+
 import SpinnerMini from "../../components/SpinnerMini";
 import StarRating from "../../components/StarRating";
-import { useMoviesContext } from "../../contexts/MoviesContext";
-import { useAddMovie } from "../watched-movies/useAddMovie";
 
 export default function RatingSection() {
   const { addMovie, isAdding } = useAddMovie();
-  const {
-    session,
-    userRating,
-    setUserRating,
-    setView,
-    selectedId,
-    watchedMovies,
-  } = useMoviesContext();
+  const { session } = useAuthContext();
+  const { watchedMovies } = useWatchedMoviesContext();
+  const { userRating, setUserRating, setView, selectedId } = useUIContext();
 
   const isWatched = watchedMovies
     ?.map((movie) => movie.imdbID)

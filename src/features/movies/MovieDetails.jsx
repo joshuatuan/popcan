@@ -1,50 +1,37 @@
-import { useEffect, useState } from "react";
-import { useMoviesContext } from "../../contexts/MoviesContext";
+import { useEffect } from "react";
 import { useKey } from "../../hooks/useKey";
 import Spinner from "../../components/Spinner";
 import BackButton from "../../components/BackButton";
 import RatingSection from "./RatingSection";
 import MovieHeader from "./MovieHeader";
 import MovieMoreInfo from "./MovieMoreInfo";
+import { useUIContext } from "../../contexts/UIContext";
 
-const API_KEY = import.meta.env.VITE_OMDB_KEY;
+import { useMovieDetails } from "./useMovieDetails";
 
 function MovieDetails() {
-  const { selectedId, handleCloseMovie } = useMoviesContext();
-  const [movie, setMovie] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const { selectedId, handleCloseMovie } = useUIContext();
+  const { movie, isLoading, error } = useMovieDetails(selectedId);
+
   useKey("Escape", handleCloseMovie);
 
   useEffect(
     function () {
-      async function getMovieDetails() {
-        setIsLoading(true);
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${API_KEY}&i=${selectedId}`,
-        );
-        const data = await res.json();
-        setMovie(data);
-        setIsLoading(false);
-      }
-      getMovieDetails();
-    },
-    [selectedId],
-  );
-
-  useEffect(
-    function () {
-      if (!movie.Title) return;
+      if (!movie?.Title) return;
       document.title = `Movie | ${movie.Title}`;
 
       return function () {
-        document.title = "POPCAN";
+        document.title = "Popcan";
       };
     },
-    [movie.Title],
+    [movie?.Title],
   );
 
   if (!selectedId || selectedId === "") {
     return <div className="mt-16 text-center"> </div>;
+  }
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
   }
 
   return (

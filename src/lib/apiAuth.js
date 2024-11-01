@@ -8,10 +8,6 @@ export async function getSession() {
 }
 
 export async function signUp({ email, password }) {
-  // const exists = await emailExists(email);
-
-  // if (exists) throw new Error("Email already exists");
-
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
