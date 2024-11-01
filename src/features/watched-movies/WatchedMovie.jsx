@@ -1,35 +1,26 @@
-import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useRemoveMovie } from "./useRemoveMovie";
-import { PhoneXMarkIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import { XMarkIcon } from "@heroicons/react/16/solid";
+import MovieTitle from "../../components/MovieTitle";
 
-function WatchedMovie({ movie }) {
+function WatchedMovie({ movie, isLastRow }) {
   const { removeMovie, isRemoving } = useRemoveMovie();
-
   return (
-    <li className="grid grid-cols-[4rem_1fr] grid-rows-2 items-center gap-5 border-b border-background-100 p-7">
+    <li
+      className={`grid max-h-[200px] max-w-[500px] grid-cols-[4rem_1fr] grid-rows-2 items-center gap-5 p-5 pb-8 font-medium md:font-normal ${isLastRow ? "mb-4 border-none pb-2" : "border-b border-background-100"}`}
+    >
       <img
         className="row-span-full w-full scale-125"
         src={movie.Poster}
         alt={`${movie.Title} poster`}
       />
-      <h3 className="text-lg">{movie.Title}</h3>
-      <div className="flex items-center justify-around gap-3">
-        <p className="flex items-center gap-1">
-          <span>⭐️</span>
-          <span>{movie.imdbRating}</span>
-        </p>
-        <p className="flex items-center gap-1">
-          <span>🌟</span>
-          <span>{movie.userRating}</span>
-        </p>
-        <p className="flex items-center gap-1">
-          <span>⏳</span>
-          <span>{movie.Runtime}</span>
-        </p>
-
+      <MovieTitle>{movie.Title}</MovieTitle>
+      <div className="flex items-center justify-around gap-0 text-base md:text-lg">
+        <MovieStat icon="⭐️">{movie.imdbRating}</MovieStat>
+        <MovieStat icon="🌟">{movie.userRating}</MovieStat>
+        <MovieStat icon="⏳">{movie.Runtime}</MovieStat>
         <button
           onClick={() => removeMovie(movie.imdbID)}
-          className="duration-30 ml-2 rounded-full bg-red transition-all hover:bg-redDark"
+          className="ml-2 rounded-full bg-red-500 transition-all duration-300 hover:bg-red-600"
           disabled={isRemoving}
         >
           <XMarkIcon className="h-5 cursor-pointer text-black" />
@@ -38,5 +29,13 @@ function WatchedMovie({ movie }) {
     </li>
   );
 }
-
 export default WatchedMovie;
+
+function MovieStat({ children, icon }) {
+  return (
+    <p className="flex items-center gap-[2px]">
+      <span>{icon}</span>
+      <span className="text-sm md:text-base">{children}</span>
+    </p>
+  );
+}

@@ -6,6 +6,7 @@ export default {
       sans: [
         "-apple-system",
         "BlinkMacSystemFont",
+        "Poppins",
         "Roboto",
         "Segoe UI",
         "Oxygen",
@@ -35,8 +36,6 @@ export default {
           700: "#25282d",
           900: "#212529",
         },
-        red: "#fa5252",
-        redDark: "#e03131",
       },
     },
   },

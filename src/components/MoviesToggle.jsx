@@ -1,9 +1,11 @@
 import { useMoviesContext } from "../contexts/MoviesContext";
 
-function MoviesToggle() {
+function MoviesToggle({ className }) {
   const { view, setView } = useMoviesContext();
   return (
-    <div className="flex items-center justify-center rounded-2xl bg-primaryLight p-1">
+    <div
+      className={`flex items-center justify-center rounded-xl bg-primaryLight p-1 ${className}`}
+    >
       <ButtonToggle
         onClick={() => setView("browseMovies")}
         isActive={view === "browseMovies"}
@@ -26,7 +28,7 @@ function ButtonToggle({ children, isActive, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`hover:bg-primary-400 rounded-2xl px-3 py-2 ${isActive && "bg-primary-500 hover:!bg-primary-500"}`}
+      className={`rounded-xl px-4 py-2 text-base transition-all duration-200 hover:bg-primary-400 md:px-7 md:py-2 md:text-base ${isActive && "bg-primary-500 hover:!bg-primary-500"}`}
     >
       {children}
     </button>

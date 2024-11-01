@@ -1,37 +1,26 @@
 import { useMoviesContext } from "../contexts/MoviesContext";
+import AuthToggle from "./AuthToggle";
 import MoviesToggle from "./MoviesToggle";
-import Search from "./Search";
 import SignOutButton from "./SignOutButton";
 
 function NavBar() {
-  const { movies, session } = useMoviesContext();
+  const { session } = useMoviesContext();
 
   return (
-    <nav className="bg-primary-500 mx-auto flex h-20 max-w-7xl items-center justify-between rounded-2xl px-4">
-      <div className="flex items-center">
-        <span className="text-3xl" role="img">
-          🍿
-        </span>
-        <h1 className="hidden text-xl font-semibold text-white md:block">
-          popcan
+    <nav className="sticky top-0 z-50 mx-auto grid h-20 max-w-7xl grid-cols-[1fr_5rem] items-center justify-items-start bg-primary-500 px-2 transition-all duration-200 md:top-5 md:grid-cols-[8rem_1fr_8rem] md:justify-items-center md:rounded-2xl md:px-4">
+      <div className="hidden cursor-default items-center md:flex">
+        <h1 className="text-xl font-semibold text-white">
+          <span className="text-3xl" role="img">
+            🍿
+          </span>
+          POPCAN
         </h1>
       </div>
-      <Search />
-      {/* <MoviesToggle /> */}
+      <MoviesToggle />
 
-      {session && <SignOutButton />}
+      {session ? <SignOutButton /> : <AuthToggle />}
     </nav>
   );
-}
-
-{
-  /* <p className="num-results">
-{movies.length > 0 && (
-  <span>
-    Found <strong>{movies.length}</strong> results
-  </span>
-)}
-</p> */
 }
 
 export default NavBar;

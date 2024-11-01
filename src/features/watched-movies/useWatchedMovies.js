@@ -4,7 +4,7 @@ import { getRatedMovies } from "../../lib/apiMovies";
 export function useWatchedMovies() {
   const {
     data: watchedMovies,
-    isLoading: isLoadingWatchedMovies,
+    isPending: isLoadingWatchedMovies,
     error: watchedMoviesError,
   } = useQuery({
     queryKey: ["watchedMovies"],

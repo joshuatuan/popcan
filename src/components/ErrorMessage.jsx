@@ -1,11 +1,7 @@
-import { useMoviesContext } from "../contexts/MoviesContext";
-
-function ErrorMessage() {
-  const { error } = useMoviesContext();
-
+function ErrorMessage({ className, children }) {
   return (
-    <p className="px-10 text-center text-xl">
-      <span>❌</span> {error}
+    <p className={`px-15 text-center ${className}`}>
+      <span>❌</span> {children}
     </p>
   );
 }

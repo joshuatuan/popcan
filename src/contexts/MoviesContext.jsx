@@ -1,93 +1,97 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { useMovies } from "../hooks/useMovies";
-import supabase from "../utils/supabase";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useMovies } from "../features/movies/useMovies";
+import supabase from "../lib/supabase";
 import { useWatchedMovies } from "../features/watched-movies/useWatchedMovies";
 import { useQueryClient } from "@tanstack/react-query";
 
 const MoviesContext = createContext();
 
 function MoviesProvider({ children }) {
-  const [query, setQuery] = useState("");
-  const [view, setView] = useState("myList");
-  const queryClient = useQueryClient();
-
-  // const [watched, setWatched] = useLocalStorageState([], "watched");
-
-  const [selectedId, setSelectedId] = useState(null);
   const [session, setSession] = useState(null);
+
+  // const initialView = !session ? "auth" : "myList";
+  const [view, setView] = useState("myList"); //browseMovies, myList, auth
+  const [query, setQuery] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
+  const [userRating, setUserRating] = useState("");
+
+  const {
+    movies,
+    isLoading: isLoadingMovies,
+    error: errorMovies,
+  } = useMovies(query);
 
   const { watchedMovies, isLoadingWatchedMovies, watchedMoviesError } =
     useWatchedMovies();
 
-  const [isLoadingSession, setIsLoadingSession] = useState(true); // Track session loading
-
-  // Update watched state when ratedMovies changes
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    // Fetch the current session on app load
     const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      setSession(data.session);
-      setIsLoadingSession(false);
-      if (error) throw new Error(error.message);
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        setSession(data.session);
+      } catch (error) {
+        console.error("Error fetching session:", error.message);
+      }
     };
     getSession();
 
-    // Listen for auth state changes
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, newSession) => {
-        setSession(newSession);
-        queryClient.invalidateQueries(["watchedMovies"]);
-      },
-    );
+    const { data } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      setSession(newSession);
+      queryClient.invalidateQueries(["watchedMovies"]);
+    });
 
-    // Clean up listener on component unmount
     return () => {
       authListener.subscription.unsubscribe();
     };
   }, [queryClient]);
 
-  //Movies api call
-  const { movies, isLoading, error } = useMovies(query);
-
-  function handleSelectMovie(id) {
-    setSelectedId((selectedId) => (id === selectedId ? null : id));
-  }
-  function handleCloseMovie() {
+  const handleSelectMovie = (id) => {
+    setSelectedId((prevId) => (id === prevId ? null : id));
+  };
+  const handleCloseMovie = () => {
     setSelectedId(null);
-  }
-  function handleAddWatched(movie) {
-    // setWatched((watched) => [...watched, movie]);
-  }
+  };
 
-  function handleDeleteWatched(deleteMovieId) {
-    // setWatched((watched) =>
-    //   watched.filter((movie) => movie.imdbID !== deleteMovieId)
-    // );
-  }
+  const contextValue = useMemo(
+    () => ({
+      session,
+      isLoadingSession: !session,
+      watchedMovies,
+      isLoadingWatchedMovies,
+      watchedMoviesError,
+      selectedId,
+      view,
+      setView,
+      query,
+      setQuery,
+      movies,
+      userRating,
+      setUserRating,
+      isLoadingMovies,
+      errorMovies,
+      handleCloseMovie,
+      handleSelectMovie,
+    }),
+    [
+      session,
+      watchedMovies,
+      isLoadingWatchedMovies,
+      watchedMoviesError,
+      selectedId,
+      view,
+      query,
+      movies,
+      userRating,
+      isLoadingMovies,
+      errorMovies,
+    ],
+  );
 
   return (
-    <MoviesContext.Provider
-      value={{
-        session,
-        isLoadingSession,
-        watchedMovies,
-        watchedMoviesError,
-        isLoadingWatchedMovies,
-        selectedId,
-        view,
-        setView,
-        query,
-        setQuery,
-        movies,
-        isLoading,
-        error,
-        handleAddWatched,
-        handleCloseMovie,
-        handleDeleteWatched,
-        handleSelectMovie,
-      }}
-    >
+    <MoviesContext.Provider value={contextValue}>
       {children}
     </MoviesContext.Provider>
   );

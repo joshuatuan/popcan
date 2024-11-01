@@ -1,12 +1,15 @@
 import { useMoviesContext } from "../contexts/MoviesContext";
 import MoviesContainer from "../features/movies/MoviesContainer";
 import WatchedMoviesContainer from "../features/watched-movies/WatchedMoviesContainer";
+import AuthContainer from "./AuthContainer";
 
-function MainLayout({ children }) {
+function MainLayout() {
   const { view } = useMoviesContext();
   return (
-    <main className="mt-10 flex h-[calc(100vh-15rem)] justify-center gap-10">
-      {children}
+    <main className="mx-auto mt-3 flex min-h-[200px] max-w-full justify-center p-3 md:mt-8 md:p-10">
+      {view === "myList" && <WatchedMoviesContainer />}
+      {view === "browseMovies" && <MoviesContainer />}
+      {view === "auth" && <AuthContainer />}
     </main>
   );
 }

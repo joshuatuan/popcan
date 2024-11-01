@@ -1,7 +1,17 @@
-TAILWIND
 SHOW WHICH STREAMING PLATFORMS AVAILABLE FOR THE MOVIES
 EDIT RATING? 
-JUST FUCKING REVAMP THE WHOLE STYLE BRA, GIVE IT UP
-MOBILE
-AUTHCONTEXT
-FALLBACK POSTA
+
+redo the fucking context api
+auth context
+split the contexts like auth context and shit, 
+maybe put the session on the fucking react query? 
+
+mobile fullview thing for movie details, 
+go back button
+selected id reset
+
+watched movielist row borders for mobile and desktop, 
+
+we not done nig
+just use a usereducer for this
+for: rating 

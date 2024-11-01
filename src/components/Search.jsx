@@ -3,8 +3,10 @@ import { useKey } from "../hooks/useKey";
 import { useMoviesContext } from "../contexts/MoviesContext";
 
 function Search() {
-  const { query, setQuery } = useMoviesContext();
+  const { query, setQuery, handleSelectMovie } = useMoviesContext();
   const inputElement = useRef(null);
+
+  if (query.length < 1) handleSelectMovie(null);
 
   useKey("Enter", function () {
     if (document.activeElement === inputElement.current) return; // if actively searching, do not do siht
@@ -14,9 +16,9 @@ function Search() {
 
   return (
     <input
-      className="text-md w-[24rem] justify-self-center rounded-xl border-none bg-primaryLight px-5 py-3 text-text transition-all duration-300 placeholder:text-textDark focus:-translate-y-1 focus:shadow-md focus:outline-none"
+      className="text-md w-full rounded-xl border-none bg-background-300 px-5 py-3 text-text transition-colors duration-300 placeholder:text-textDark focus:outline-none focus:ring-2 focus:ring-primary-500 md:max-w-sm"
       type="text"
-      placeholder="Search movies..."
+      placeholder="Search films..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       ref={inputElement}

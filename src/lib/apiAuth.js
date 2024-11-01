@@ -1,4 +1,4 @@
-import supabase from "../utils/supabase";
+import supabase from "./supabase";
 
 export async function getSession() {
   const { data, error } = await supabase.auth.getSession();
@@ -7,7 +7,11 @@ export async function getSession() {
   return data.session;
 }
 
-export async function signUp(email, password) {
+export async function signUp({ email, password }) {
+  // const exists = await emailExists(email);
+
+  // if (exists) throw new Error("Email already exists");
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -16,7 +20,7 @@ export async function signUp(email, password) {
   return data;
 }
 
-export async function signIn(email, password) {
+export async function signIn({ email, password }) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
