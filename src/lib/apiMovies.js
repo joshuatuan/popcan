@@ -1,6 +1,8 @@
 import supabase from "../lib/supabase";
 import { getSession } from "./apiAuth";
 
+const API_KEY = env.OMDB_KEY;
+
 export async function insertRating({ movie_id, user_rating }) {
   const session = await getSession();
   if (!session) throw new Error("No session found");
@@ -15,8 +17,6 @@ export async function insertRating({ movie_id, user_rating }) {
 }
 
 export async function getRatedMovies() {
-  const OMDB_KEY = import.meta.env.VITE_OMDB_KEY;
-
   const session = await getSession();
   if (!session) return [];
 
@@ -54,8 +54,6 @@ export async function removeRatedMovie(movie_id) {
 }
 
 export async function fetchMovieSearch(query, signal) {
-  const API_KEY = import.meta.env.VITE_OMDB_KEY;
-
   const res = await fetch(
     `http://www.omdbapi.com/?&apikey=${API_KEY}&s=${query}`,
     { signal },
@@ -75,7 +73,6 @@ export async function fetchMovieSearch(query, signal) {
 
 export async function fetchMovieDetails(id) {
   console.log("Fetching movie details for ID:", id);
-  const API_KEY = import.meta.env.VITE_OMDB_KEY;
 
   const res = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
   if (!res.ok) {
