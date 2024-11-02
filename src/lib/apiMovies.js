@@ -36,7 +36,7 @@ export async function getRatedMovies() {
     ratedMoviesData.map(async (movie) => {
       const movieId = movie.movie_id; // Access the movie_id from the rating object
       const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${API_KEY}&i=${movieId}`,
+        `https://www.omdbapi.com/?apikey=${API_KEY}&i=${movieId}`,
       );
       const movieDetails = await res.json();
       return { ...movieDetails, userRating: movie.user_rating }; // Return the movie details
@@ -55,7 +55,7 @@ export async function removeRatedMovie(movie_id) {
 
 export async function fetchMovieSearch(query, signal) {
   const res = await fetch(
-    `http://www.omdbapi.com/?&apikey=${API_KEY}&s=${query}`,
+    `https://www.omdbapi.com/?&apikey=${API_KEY}&s=${query}`,
     { signal },
   );
 
@@ -74,7 +74,7 @@ export async function fetchMovieSearch(query, signal) {
 export async function fetchMovieDetails(id) {
   console.log("Fetching movie details for ID:", id);
 
-  const res = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
+  const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
   if (!res.ok) {
     throw new Error("Something went wrong with fetching movies");
   }
