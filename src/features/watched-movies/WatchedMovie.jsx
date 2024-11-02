@@ -1,6 +1,7 @@
 import { useRemoveMovie } from "./useRemoveMovie";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import MovieTitle from "../../components/MovieTitle";
+import MissingPoster from "../../components/MissingPoster";
 
 function WatchedMovie({ movie, isLastRow }) {
   const { removeMovie, isRemoving } = useRemoveMovie();
@@ -8,11 +9,15 @@ function WatchedMovie({ movie, isLastRow }) {
     <li
       className={`grid max-h-[200px] max-w-[500px] grid-cols-[4rem_1fr] grid-rows-2 items-center gap-5 p-5 pb-8 font-medium md:font-normal ${isLastRow ? "mb-4 border-none pb-2" : "border-b border-background-100"}`}
     >
-      <img
-        className="row-span-full w-full scale-125"
-        src={movie.Poster}
-        alt={`${movie.Title} poster`}
-      />
+      {movie.Poster && movie.Poster !== "N/A" ? (
+        <img
+          className="row-span-full w-full"
+          src={movie.Poster}
+          alt={`Poster of ${movie.Title}`}
+        />
+      ) : (
+        <MissingPoster className="row-span-full flex items-center justify-center" />
+      )}
       <MovieTitle>{movie.Title}</MovieTitle>
       <div className="flex items-center justify-around gap-0 text-base md:text-lg">
         <MovieStat icon="⭐️">{movie.imdbRating}</MovieStat>
