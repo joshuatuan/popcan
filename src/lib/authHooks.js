@@ -4,11 +4,10 @@ import {
   signOut as apiSignOut,
   signUp as signUpApi,
 } from "./apiAuth";
-import { useMoviesContext } from "../contexts/MoviesContext";
+import { useUIContext } from "../contexts/UIContext";
 
 export function useSignIn() {
-  const { setView } = useMoviesContext();
-
+  const { setView } = useUIContext();
   const {
     mutate: signIn,
     isPending: isSigningIn,
@@ -17,6 +16,7 @@ export function useSignIn() {
     mutationFn: signInApi,
     onSuccess: () => {
       setView("myList");
+      localStorage.setItem("hasLoggedInBefore", "true");
     },
     onError: (err) => {
       throw new Error(err.message);
@@ -27,8 +27,7 @@ export function useSignIn() {
 }
 
 export function useSignOut() {
-  const { setView } = useMoviesContext();
-
+  const { setView } = useUIContext();
   const { mutate: signOut, isPending: isSigningOut } = useMutation({
     mutationFn: apiSignOut,
     onSuccess: () => {
@@ -43,8 +42,7 @@ export function useSignOut() {
 }
 
 export function useSignUp() {
-  const { setView } = useMoviesContext();
-
+  const { setView } = useUIContext();
   const {
     mutate: signUp,
     isPending: isSigningUp,
@@ -53,6 +51,7 @@ export function useSignUp() {
     mutationFn: signUpApi,
     onSuccess: () => {
       setView("myList");
+      localStorage.setItem("hasLoggedInBefore", "true");
     },
     onError: (err) => {
       throw new Error(err.message);

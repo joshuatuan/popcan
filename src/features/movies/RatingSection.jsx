@@ -6,9 +6,10 @@ import { useUIContext } from "../../contexts/UIContext";
 
 import SpinnerMini from "../../components/SpinnerMini";
 import StarRating from "../../components/StarRating";
+import ErrorMessage from "../../components/ErrorMessage";
 
 export default function RatingSection() {
-  const { addMovie, isAdding } = useAddMovie();
+  const { addMovie, isAdding, error } = useAddMovie();
   const { session } = useAuthContext();
   const { watchedMovies } = useWatchedMoviesContext();
   const { userRating, setUserRating, setView, selectedId } = useUIContext();
@@ -50,22 +51,25 @@ export default function RatingSection() {
             </button>
           )}
           {session && userRating > 0 && (
-            <button
-              className={`cursor-pointer rounded-full border-none py-3 text-sm font-bold text-text transition-all duration-300 hover:bg-primary-500 ${
-                isAdding ? "bg-primaryLight" : "bg-primaryLight"
-              }`}
-              onClick={handleAdd}
-              disabled={isAdding}
-            >
-              {isAdding ? (
-                <span className="flex items-center justify-center gap-2">
-                  Adding to list
-                  <SpinnerMini className="w-5 border-primary-100 border-r-primary-300" />
-                </span>
-              ) : (
-                "+ Add to list"
-              )}
-            </button>
+            <>
+              <button
+                className={`cursor-pointer rounded-full border-none py-3 text-sm font-bold text-text transition-all duration-300 hover:bg-primary-500 ${
+                  isAdding ? "bg-primaryLight" : "bg-primaryLight"
+                }`}
+                onClick={handleAdd}
+                disabled={isAdding}
+              >
+                {isAdding ? (
+                  <span className="flex items-center justify-center gap-2">
+                    Adding to list
+                    <SpinnerMini className="w-5 border-primary-100 border-r-primary-300" />
+                  </span>
+                ) : (
+                  "+ Add to list"
+                )}
+              </button>
+              {error && <ErrorMessage>{error}</ErrorMessage>}
+            </>
           )}
         </>
       ) : (

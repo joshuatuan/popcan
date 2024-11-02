@@ -8,7 +8,6 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null);
   const queryClient = useQueryClient();
-
   useEffect(() => {
     const getSession = async () => {
       try {

@@ -12,7 +12,8 @@ import { UIProvider } from "./contexts/UIContext.jsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 1000 * 60 * 5,
+      cacheTime: 1000 * 60 * 10,
     },
   },
 });

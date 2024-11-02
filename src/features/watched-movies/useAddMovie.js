@@ -3,7 +3,11 @@ import { insertRating } from "../../lib/apiMovies";
 
 export function useAddMovie() {
   const queryClient = useQueryClient();
-  const { mutate: addMovie, isPending: isAdding } = useMutation({
+  const {
+    mutate: addMovie,
+    isPending: isAdding,
+    error,
+  } = useMutation({
     mutationFn: insertRating,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["watchedMovies"] });
@@ -13,5 +17,5 @@ export function useAddMovie() {
     },
   });
 
-  return { addMovie, isAdding };
+  return { addMovie, isAdding, error };
 }
