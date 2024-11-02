@@ -1,8 +1,7 @@
 import supabase from "../lib/supabase";
 import { getSession } from "./apiAuth";
 
-// const API_KEY = import.meta.env.VITE_OMDB_KEY;
-const API_KEY = "21f3e4c5";
+const API_KEY = import.meta.env.VITE_OMDB_KEY;
 
 export async function insertRating({ movie_id, user_rating }) {
   const session = await getSession();
