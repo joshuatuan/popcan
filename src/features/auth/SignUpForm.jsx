@@ -1,9 +1,9 @@
 import { useState } from "react";
 import AuthButton from "./AuthButton";
 import InputField from "./InputField";
-import { useSignUp } from "../lib/authHooks";
+import { useSignUp } from "../../lib/authHooks";
 import PasswordInput from "./PasswordInput";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 
 function SignUpForm() {
   const [email, setEmail] = useState("");

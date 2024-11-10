@@ -1,4 +1,4 @@
-import { useUIContext } from "../contexts/UIContext";
+import { useUIContext } from "../../contexts/UIContext";
 
 function AuthToggle() {
   const { setView } = useUIContext();

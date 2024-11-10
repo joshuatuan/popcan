@@ -1,4 +1,4 @@
-import SpinnerMini from "./SpinnerMini";
+import SpinnerMini from "../../components/ui/SpinnerMini";
 
 function AuthButton({ isSubmitting, children }) {
   return (

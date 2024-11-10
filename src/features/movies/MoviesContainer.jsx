@@ -1,5 +1,5 @@
 import Search from "../../components/Search";
-import SpinnerMini from "../../components/SpinnerMini";
+import SpinnerMini from "../../components/ui/SpinnerMini";
 import { useMoviesContext } from "../../contexts/MoviesContext";
 import { useUIContext } from "../../contexts/UIContext";
 import MovieDetails from "./MovieDetails";

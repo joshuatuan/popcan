@@ -4,7 +4,7 @@ import { useAddMovie } from "../watched-movies/useAddMovie";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useUIContext } from "../../contexts/UIContext";
 
-import SpinnerMini from "../../components/SpinnerMini";
+import SpinnerMini from "../../components/ui/SpinnerMini";
 import StarRating from "../../components/StarRating";
 import ErrorMessage from "../../components/ErrorMessage";
 

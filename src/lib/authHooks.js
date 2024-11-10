@@ -31,7 +31,7 @@ export function useSignOut() {
   const { mutate: signOut, isPending: isSigningOut } = useMutation({
     mutationFn: apiSignOut,
     onSuccess: () => {
-      setView("auth");
+      // setView("auth");
     },
     onError: (err) => {
       throw new Error(err.message);

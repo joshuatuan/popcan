@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useKey } from "../../hooks/useKey";
-import Spinner from "../../components/Spinner";
-import BackButton from "../../components/BackButton";
+import BackButton from "../../components/ui/BackButton";
 import RatingSection from "./RatingSection";
 import MovieHeader from "./MovieHeader";
 import MovieMoreInfo from "./MovieMoreInfo";
 import { useUIContext } from "../../contexts/UIContext";
+import Spinner from "../../components/ui/Spinner";
 
 import { useMovieDetails } from "./useMovieDetails";
 

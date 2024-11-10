@@ -1,7 +1,8 @@
-import { useUIContext } from "../contexts/UIContext";
-import MoviesContainer from "../features/movies/MoviesContainer";
-import WatchedMoviesContainer from "../features/watched-movies/WatchedMoviesContainer";
-import AuthContainer from "./AuthContainer";
+import { useUIContext } from "../../contexts/UIContext";
+import MoviesContainer from "../../features/movies/MoviesContainer";
+import WatchedMoviesContainer from "../../features/watched-movies/WatchedMoviesContainer";
+import AuthContainer from "../../features/auth/AuthContainer";
+import WelcomePage from "../WelcomePage";
 
 function MainLayout() {
   const { view } = useUIContext();
@@ -10,6 +11,7 @@ function MainLayout() {
       {view === "myList" && <WatchedMoviesContainer />}
       {view === "browseMovies" && <MoviesContainer />}
       {view === "auth" && <AuthContainer />}
+      {view === "welcome" && <WelcomePage />}
     </main>
   );
 }

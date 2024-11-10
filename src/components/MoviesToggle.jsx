@@ -28,7 +28,7 @@ function ButtonToggle({ children, isActive, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`rounded-xl px-4 py-2 text-base transition-all duration-200 hover:bg-primary-400 md:px-7 md:py-2 md:text-base ${isActive && "bg-primary-500 hover:!bg-primary-500"}`}
+      className={`rounded-xl px-2 py-2 pr-3 text-base transition-all duration-200 hover:bg-primary-400 md:px-7 md:py-2 md:text-base ${isActive && "bg-primary-500 hover:!bg-primary-500"}`}
     >
       {children}
     </button>

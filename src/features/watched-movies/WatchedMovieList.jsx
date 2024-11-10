@@ -7,7 +7,7 @@ function WatchedMovieList() {
 
   return (
     <ul
-      className={`grid ${watchedMovies?.length < 3 ? "h-[calc(100vh-35rem)]" : "h-[calc(100vh-23rem)]"} list-none justify-center overflow-scroll rounded-lg border-background-100 md:h-[calc(100vh-29rem)] md:grid-cols-2`}
+      className={`grid ${watchedMovies?.length < 3 ? "h-[calc(100vh-35rem)]" : "h-[calc(100vh-23rem)]"} min-h-[400px] list-none justify-center overflow-scroll rounded-lg border-background-100 md:h-[calc(100vh-29rem)] md:grid-cols-2`}
     >
       {watchedMovies?.map((movie, index) => {
         const isLastRow =

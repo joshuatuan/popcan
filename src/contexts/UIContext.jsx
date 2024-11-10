@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const UIContext = createContext();
 
 export function UIProvider({ children }) {
-  const [view, setView] = useState("myList");
+  const [view, setView] = useState("welcome");
   const [selectedId, setSelectedId] = useState(null);
   const [userRating, setUserRating] = useState("");
 

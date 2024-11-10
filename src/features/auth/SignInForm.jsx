@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useSignIn } from "../lib/authHooks";
+import { useSignIn } from "../../lib/authHooks";
 import AuthButton from "./AuthButton";
 import InputField from "./InputField";
 import PasswordInput from "./PasswordInput";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 
 function SignInForm() {
   const { signIn, isSigningIn, signInError } = useSignIn();
